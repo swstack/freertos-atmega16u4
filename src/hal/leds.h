@@ -8,15 +8,38 @@
 
 typedef enum { OFF, ON } led_state;
 
+/************************************************
+  LED Init functions
+*************************************************/
+
+void init_gpio_leds();
 void init_on_board_leds();
 
-void set_on_board_yellow(led_state);
-void set_on_board_red(led_state);
-void set_on_board_green(led_state);
+/************************************************
+  LED Toggle Functions (Flip state)
+*************************************************/
 
-void toggle_on_board_green();
+void toggle_gpio_yellow();
+void toggle_gpio_red();
+void toggle_gpio_green();
 void toggle_on_board_yellow();
+void toggle_on_board_green();
 void toggle_on_board_red();
+
+/************************************************
+  LED Set Functions
+*************************************************/
+
+void set_on_board_yellow(led_state state);
+void set_on_board_green(led_state state);
+void set_on_board_red(led_state state);
+void set_gpio_red(led_state state);
+void set_gpio_green(led_state state);
+void set_gpio_yellow(led_state state);
+
+/************************************************
+  Other Function
+*************************************************/
 
 void flash_on_board_leds();
 
