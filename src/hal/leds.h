@@ -1,5 +1,5 @@
-#ifndef _LEDS
-#define _LEDS
+#ifndef _leds_h
+#define _leds_h
 
 #define F_CPU 16000000
 
