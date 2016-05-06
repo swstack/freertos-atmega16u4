@@ -1,43 +1,35 @@
-#include <avr/io.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <common.h>
+#include <leds.h>
+#include <avr_config.h>
 #include <FreeRTOS.h>
+
+/************************************************
+  Tasks
+*************************************************/
+
+void task_blink_green_led(void *pvParameters __attribute__((unused))) {
+  for (;;) {
+    toggle_on_board_green();
+    vTaskDelay(1);
+  }
+}
+
+void task_blink_red_led(void *pvParameters __attribute__((unused))) {
+  for (;;) {
+    toggle_on_board_red();
+    vTaskDelay(5);
+  }
+}
 
 /************************************************
   Main
 *************************************************/
-
-void task_blink_green_led( void *pvParameters __attribute__((unused)) )  // This is a Task.
-{
-
-  for (;;) // A Task shall never return or exit.
-  {
-    toggle_on_board_green();
-    vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
-  }
+void create_task() {
 
 }
 
-void task_blink_red_led( void *pvParameters __attribute__((unused)) )  // This is a Task.
-{
-
-  for (;;) // A Task shall never return or exit.
-  {
-    toggle_on_board_red();
-    vTaskDelay(5);  // one tick delay (15ms) in between reads for stability
-  }
-
-}
-
-
-int main() {
-  // Main loop
-  //
-
-  init_on_board_leds();
-  flash_on_board_leds();
-
+void create_tasks() {
   xTaskCreate(
     task_blink_green_led
     ,  (const portCHAR *)"Blink Green LED"  // A name just for humans
@@ -53,8 +45,14 @@ int main() {
       ,  NULL
       ,  2  // Priority, with 1 being the highest, and 4 being the lowest.
       ,  NULL );
+}
 
+int main() {
+  // Main loop
 
+  init_on_board_leds();
+  flash_on_board_leds();
+  create_tasks();
   vTaskStartScheduler();
 
   return 0;
