@@ -22,9 +22,35 @@ void task_blink_red_led(void *pvParameters __attribute__((unused))) {
   }
 }
 
+void task_blink_yellow_led(void *pvParameters __attribute__((unused))) {
+  for (;;) {
+    vTaskDelay(5);
+  }
+}
+
+void task_count_green_led(void *pvParameters __attribute__((unused))) {
+  for (;;) {
+    vTaskDelay(5);
+  }
+}
+
+void task_jitter_led(void *pvParameters __attribute__((unused))) {
+  for (;;) {
+    vTaskDelay(5);
+  }
+}
+
+void task_hough_transform(void *pvParameters __attribute__((unused))) {
+  for (;;) {
+    vTaskDelay(5);
+  }
+}
+
+
 /************************************************
   Main
 *************************************************/
+
 int main() {
   // Main loop
 
