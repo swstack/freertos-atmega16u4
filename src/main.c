@@ -6,6 +6,7 @@
 #include <avr_config.h>
 #include <task_helper.h>
 #include <VirtualSerial.h>
+#include <hough.h>
 
 /************************************************
   Tasks
@@ -44,7 +45,9 @@ void task_jitter_led(void *args) {
 
 void task_hough_transform(void *args) {
   for (;;) {
-    vTaskDelay(5);
+    volatile char dummyVar;
+    dummyVar = houghTransform((uint16_t)&image_red, (uint16_t)&image_green, (uint16_t)&image_blue);
+    vTaskDelay(100);
   }
 }
 
@@ -54,7 +57,6 @@ void task_virtual_serial(void *args) {
     vTaskDelay(30);
   }
 }
-
 
 /************************************************
   Main
@@ -74,6 +76,7 @@ int main() {
   init();
   flash_on_board_leds();
 
+  create_task(task_hough_transform, PRIORITY_NORMAL);
   create_task(task_blink_green_led, PRIORITY_NORMAL);
   create_task(task_blink_red_led, PRIORITY_NORMAL);
   create_task(task_virtual_serial, PRIORITY_LOW);
