@@ -72,6 +72,7 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <avr/wdt.h>
+#include <avr_config.h>
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -83,7 +84,8 @@
 /* Start tasks with interrupts enabled. */
 #define portFLAGS_INT_ENABLED					( (StackType_t) 0x80 )
 
-#define	portSCHEDULER_ISR						WDT_vect
+// #define	portSCHEDULER_ISR						WDT_vect
+#define portSCHEDULER_ISR TIMER0_COMPA_vect
 
 /*-----------------------------------------------------------*/
 
@@ -91,14 +93,6 @@
 any details of its type. */
 typedef void TCB_t;
 extern volatile TCB_t * volatile pxCurrentTCB;
-
-/*-----------------------------------------------------------*/
-/*
- * Perform hardware setup to enable ticks from Watchdog Timer.
- */
-static void prvSetupTimerInterrupt( void );
-
-/*-----------------------------------------------------------*/
 
 /*
  * Macro to save all the general purpose registers, the save the stack pointer
@@ -528,19 +522,6 @@ void vPortYieldFromTick( void )
 
 	__asm__ __volatile__ ( "ret" );
 }
-/*-----------------------------------------------------------*/
-
-//initialize watchdog
-void prvSetupTimerInterrupt( void )
-{
-	//reset watchdog
-	wdt_reset();
-
-	//set up WDT Interrupt (rather than the WDT Reset).
-	wdt_interrupt_enable( portUSE_WDTO );
-}
-
-/*-----------------------------------------------------------*/
 
 #if configUSE_PREEMPTION == 1
 
