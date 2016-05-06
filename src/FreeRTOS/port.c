@@ -73,7 +73,6 @@
 #include <avr/sleep.h>
 #include <avr/wdt.h>
 
-#include "portmacro.h"
 #include "FreeRTOS.h"
 #include "task.h"
 

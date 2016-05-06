@@ -101,7 +101,11 @@ extern "C" {
 #include "projdefs.h"
 
 /* Definitions specific to the port being used. */
+#include "portmacro.h"
 #include "portable.h"
+
+/* Variant (AVR) specific configuration options. */
+#include "avr_config.h"
 
 /*
  * Check all the required application specific macros have been defined.
@@ -1057,4 +1061,3 @@ typedef struct xSTATIC_TIMER
 #endif
 
 #endif /* INC_FREERTOS_H */
-
