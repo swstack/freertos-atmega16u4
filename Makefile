@@ -1,7 +1,7 @@
 PORT=/dev/tty.usb*
 MCU=atmega32u4
-CFLAGS=-g -Wall -mcall-prologues -mmcu=$(MCU) -Os -std=c99 -I./src/ -I./src/hal/ -I./src/FreeRTOS/include/
-LDFLAGS=-Wl,-gc-sections -Wl,-relax
+CFLAGS=-g -Wall -mcall-prologues -mmcu=$(MCU) -Os -std=c99 -I./src/ -I./src/hal/ -I./src/FreeRTOS/include/ -I./src/VirtualSerial/
+LDFLAGS=-Wl,-gc-sections -Wl,-relax -L./src/VirtualSerial/ -lVirtualSerial
 CC=avr-gcc
 TARGET=main
 SOURCES=$(wildcard src/*.c src/hal/*.c src/FreeRTOS/*.c)
