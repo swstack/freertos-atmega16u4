@@ -41,6 +41,6 @@ void set_gpio_yellow(led_state state);
   Other Function
 *************************************************/
 
-void flash_on_board_leds();
+void flash_all_leds();
 
 #endif
