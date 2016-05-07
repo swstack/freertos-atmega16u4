@@ -70,7 +70,9 @@ void task_hough_transform(void *args) {
 
   for (;;) {
     volatile char dummyVar;
+    set_on_board_green(ON);
     dummyVar = houghTransform((uint16_t)&image_red, (uint16_t)&image_green, (uint16_t)&image_blue);
+    set_on_board_green(OFF);
     vTaskDelay(1000);
   }
 }
@@ -137,10 +139,10 @@ int main() {
   initial_prompt();
   uptime_ms = 0;
 
-  create_task(task_blink_red_led, PRIORITY_HIGH);
-  create_task(task_blink_green_led, PRIORITY_NORMAL);
-  create_task(task_blink_yellow_led, PRIORITY_NORMAL);
-  // create_task(task_hough_transform, PRIORITY_NORMAL);
+  // create_task(task_blink_red_led, PRIORITY_HIGH);
+  // create_task(task_blink_green_led, PRIORITY_NORMAL);
+  // create_task(task_blink_yellow_led, PRIORITY_NORMAL);
+  create_task(task_hough_transform, PRIORITY_NORMAL);
   create_task(task_virtual_serial, PRIORITY_LOW);
 
   vTaskStartScheduler();
