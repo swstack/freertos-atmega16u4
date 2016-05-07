@@ -18,7 +18,7 @@ int main() {
     (const portCHAR *)"Simple Task",     // Name for humans
     128,                                 // Stack size (words)
     NULL,                                // Task parameters
-    priority,                            // Priority (1 high, 4 low)
+    2,                                   // Priority (1 high, 4 low)
     NULL);
 
   vTaskStartScheduler();
